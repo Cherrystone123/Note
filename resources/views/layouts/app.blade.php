@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <!-- Styles -->
+        @livewireStyles
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="font-sans antialiased">
+        <x-banner />
+
+        <div class="min-h-screen bg-gray-100 grid grid-cols-12">
+            <div class="row-start-1 row-end-3 col-start-1 col-end-3 md:col-start-1 md:col-end-2">
+                @livewire('navigation-menu')
+            </div>
+            
+
+            <!-- Page Heading -->
+            @if (isset($header))
+                <header class="bg-white shadow col-start-3 col-end-13 md:col-start-2 md:col-end-13">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endif
+
+            <!-- Page Content -->
+            <main class="col-start-3 col-end-13 md:col-start-2 md:col-end-13">
+                {{ $slot }}
+            </main>
+        </div>
+
+        @stack('modals')
+
+        @livewireScripts
+    </body>
+</html>
